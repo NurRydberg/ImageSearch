@@ -4,15 +4,15 @@ import { LoginButton } from "./components/LoginButton";
 import { LogoutButton } from "./components/LogoutButton";
 import { useEffect } from "react";
 import { SearchBox } from "./components/SearchBox";
+import axios from "axios";
 
 function App() {
-  // useEffect(() => {
-  //   const search = async () => {
-  //     const response = await fetch("https://www.googleapis.com/customsearch/v1?key=INSERT_YOUR_API_KEY&cx=017576662512468239146")
-  //     const data = await response.json()
-  //     console.log(data)
-  //   }
-  // }, []);
+  useEffect(() => {
+    axios.get(`https://www.googleapis.com/customsearch/v1?key=${import.meta.env.VITE_API_KEY}&cx=${import.meta.env.VITE_GOOGLE_ID}&q=flowers`)
+      .then(function (response) {
+        console.log(response);
+      });
+  }, []);
 
   const { isAuthenticated } = useAuth0();
   return (

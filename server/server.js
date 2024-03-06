@@ -7,12 +7,6 @@ const app = express();
 
 
 
-const snus = [
-    { id: 1, name: "General", strength: 1, price: 50 },
-    { id: 2, name: "Ettan", strength: 2, price: 60 },
-    { id: 3, name: "Skruf", strength: 3, price: 70 }
-];
-
 
 
 app.use(cors());
