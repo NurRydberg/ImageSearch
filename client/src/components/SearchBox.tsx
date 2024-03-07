@@ -10,6 +10,9 @@ interface IImages {
 export const SearchBox = () => {
     const [inputValue, setInputValue] = useState("");
     const [images, setImages] = useState <IImages[]>([]);
+    const [isHeartClicked, setHeartClicked] = useState<boolean[]>([]);
+
+
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -32,6 +35,13 @@ export const SearchBox = () => {
         setInputValue(e.target.value);
     };
 
+
+    const handleHeartClick = (index: number) => {
+        const newHeartClicked = [...isHeartClicked];
+        newHeartClicked[index] = !newHeartClicked[index];
+        setHeartClicked(newHeartClicked);
+    };
+
     return (
         <form onSubmit={handleSubmit}>
             <input type="text" placeholder="Search" value={inputValue} onChange={handleInput} />
@@ -39,7 +49,10 @@ export const SearchBox = () => {
         <div>
             {images.map((images, index) => (
                 <div key={index} className="image-container">
-                    <FaHeart className="heart-icon" />
+                   <FaHeart 
+                            className={`heart-icon ${isHeartClicked[index] ? 'clicked' : ''}`} 
+                            onClick={() => handleHeartClick(index)}
+                        />
                     <img key={index} src={images.link} alt={`Image ${index}`}/>
                 </div>
             ))}

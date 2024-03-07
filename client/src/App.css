@@ -52,5 +52,19 @@
   position: absolute;
   top: 10px;
   left: 10px;
+  color: white;
+}
+
+.heart-icon:hover {
   color: red;
+}
+
+.heart-icon.clicked {
+  color: red;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  max-height: 200px;
 }
