@@ -5,6 +5,7 @@ import { LogoutButton } from "./components/LogoutButton";
 import { useEffect } from "react";
 import { SearchBox } from "./components/SearchBox";
 import axios from "axios";
+import fotokarusellen from "../src/assets/fotokarusellen.png";
 
 function App() {
   useEffect(() => {
@@ -17,6 +18,7 @@ function App() {
   const { isAuthenticated } = useAuth0();
   return (
     <>
+    <img src={fotokarusellen} alt="" style={{ maxWidth: '40%', height: 'auto' }} />
       {isAuthenticated ? (
         <>
           <SearchBox />
