@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { FaHeart } from "react-icons/fa";
 
 
 interface IImages {
@@ -37,7 +38,10 @@ export const SearchBox = () => {
             <button type="submit" onClick={handleSearch}>Starta fotokarusellen!</button>
         <div>
             {images.map((images, index) => (
-                <img key={index} src={images.link} alt={`Image ${index}`}/>
+                <div key={index} className="image-container">
+                    <FaHeart className="heart-icon" />
+                    <img key={index} src={images.link} alt={`Image ${index}`}/>
+                </div>
             ))}
         </div>
         
