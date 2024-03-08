@@ -71,3 +71,55 @@
   height: auto;
   max-height: 200px;
 }
+
+
+#loginBtn {
+  padding: 8px 16px;  /* Adjust padding to make the button smaller */
+  background-color: #3892DB;  /* Set the initial background color */
+  color: white;  /* Set the initial text color */
+  border: none;  /* Remove border */
+  cursor: pointer;  /* Set cursor to pointer for better user experience */
+  transition: background-color 0.3s;  /* Add transition for smooth color change */
+}
+
+#loginBtn:hover {
+  background-color: #F8C332;  /* Change background color on hover */
+}
+button:hover {
+  background-color: #2980b9;  /* Change background color on hover */
+}
+
+#logoutBtn {
+  padding: 8px 16px;  /* Adjust padding to make the button smaller */
+  background-color: #3892DB;  /* Set the initial background color */
+  color: white;  /* Set the initial text color */
+  border: none;  /* Remove border */
+  cursor: pointer;  /* Set cursor to pointer for better user experience */
+  transition: background-color 0.3s;  /* Add transition for smooth color change */
+  position: fixed;
+  top: 10px;  /* Adjust the distance from the top as needed */
+  right: 10px;  /* Adjust the distance from the right as needed */
+  padding: 8px 16px;
+  background-color: #3892DB;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+#logoutBtn:hover {
+  background-color: #F8C332; 
+}
+
+
+#searchBtn {
+  padding: 8px 16px;  /* Adjust padding to make the button smaller */
+  background-color: #3892DB;  /* Set the initial background color */
+  color: white;  /* Set the initial text color */
+  border: none;  /* Remove border */
+  cursor: pointer;  /* Set cursor to pointer for better user experience */
+  transition: background-color 0.3s;  /* Add transition for smooth color change */
+}
+
+#searchBtn:hover {
+  background-color: #F8C332;  /* Change background color on hover */
+}
