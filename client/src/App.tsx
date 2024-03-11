@@ -15,7 +15,19 @@ function App() {
       });
   }, []);
 
-
+const createUser = () => {
+  axios.post('http://localhost:3000/users', {
+    name: "test",
+    email: "testmail",
+  }, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+  .then(function (response) {
+    console.log(response);
+  });
+};
   
 
   const { isAuthenticated } = useAuth0();
@@ -29,6 +41,7 @@ const { user } = useAuth0();
           <>
           {console.log(user)}
             <SearchBox />
+            <button onClick={createUser}>Tryck här</button>
             <LogoutButton />
           </>
         ) : (

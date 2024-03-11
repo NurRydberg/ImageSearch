@@ -1,6 +1,1 @@
-{
-  "user": "username",
-  "favoriteImage": "imageURL",
-  "password": "password",
-  "email": "email"
-}
+{"users":[{"name":"test","email":"testmail"}]}
