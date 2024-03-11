@@ -15,13 +15,19 @@ function App() {
       });
   }, []);
 
+
+  
+
   const { isAuthenticated } = useAuth0();
+const { user } = useAuth0();
+
   return (
     <div className="app-container">
       <img src={fotokarusellen} alt="" style={{ maxWidth: '40%', height: 'auto' }} />
       <div className="centered-container">
         {isAuthenticated ? (
           <>
+          {console.log(user)}
             <SearchBox />
             <LogoutButton />
           </>
