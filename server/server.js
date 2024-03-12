@@ -8,39 +8,40 @@ const app = express();
 
 
 app.use(cors());
-app.use(express.json()); ///LADE TILL DETTA
+app.use(express.json()); 
 
 
 // Anrop fungerar
 app.post ("/users", (req, res) => {
-        console.log(req.body);
         const dataJsonfile = JSON.parse(fs.readFileSync("./users.json", "utf-8"));
-
         const userExists = dataJsonfile.find((user) => user.email === req.body.email);
 
         if (userExists) {
-            userExists.favoriteImage = req.body.favoriteImage;
-            fs.writeFileSync("./users.json", JSON.stringify(dataJsonfile, null, 2));
-            res.status(200).json("Favorite image added to existing user");
-        } else {
-            dataJsonfile.push(req.body);
-            fs.writeFileSync("./users.json", JSON.stringify(dataJsonfile, null, 2));
-            res.status(201).json("User added with favorite image");
-        }
+            userExists.favoriteImages.push(req.body.image)
 
-        // Finns användaren redan? Då vill vi lägga till hjärtad bild till den användaren. 
-        //Om användaren inte finns, spara användaren och bilden i en array
-        dataJsonfile.users.push(req.body);
+        } else {
+            dataJsonfile.push({
+                email: req.body.email,
+                favoriteImages: [req.body.image]
+            });
+        }
         
         fs.writeFileSync("./users.json", JSON.stringify(dataJsonfile, null, 2));
+
         res.status(201).json("User added");
 });
     
         
     
-    
-    app.get("/users/:id", (req, res) => {
-        res.send("Varsågod, här kommer användare med id" + req.params.id)
+
+    // steg 2 sök fram objektet för användaren som kommer in i parametern dvs mailadress
+    // steg 3 skicka tillbaka användarens favoritbilder
+    // Sker i samband med att användaren klickar på sina favoritbilder i client
+    app.get("/users/:email", (req, res) => {
+        const dataJsonfile = JSON.parse(fs.readFileSync("./users.json", "utf-8")); // Hämta ut data 
+
+
+        res.send("Varsågod, här kommer användare med id" + req.params.email);
     });
     
     
