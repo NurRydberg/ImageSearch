@@ -8,6 +8,9 @@ import axios from "axios";
 import fotokarusellen from "../src/assets/fotokarusellen.png";
 
 function App() {
+  const { isAuthenticated } = useAuth0();
+
+
   useEffect(() => {
     axios.get(`https://www.googleapis.com/customsearch/v1?key=${import.meta.env.VITE_API_KEY}&cx=${import.meta.env.VITE_GOOGLE_ID}&q=flowers`)
       .then(function (response) {
@@ -15,23 +18,14 @@ function App() {
       });
   }, []);
 
-const createUser = () => {
-  axios.post('http://localhost:3000/users', {
-    name: "test",
-    email: "testmail",
-  }, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-  .then(function (response) {
-    console.log(response);
-  });
-};
+
   
 
-  const { isAuthenticated } = useAuth0();
-const { user } = useAuth0();
+
+  
+
+
+
 
   return (
     <div className="app-container">
@@ -39,9 +33,8 @@ const { user } = useAuth0();
       <div className="centered-container">
         {isAuthenticated ? (
           <>
-          {console.log(user)}
             <SearchBox />
-            <button onClick={createUser}>Tryck här</button>
+
             <LogoutButton />
           </>
         ) : (

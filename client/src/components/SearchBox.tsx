@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
@@ -8,10 +9,14 @@ interface IImages {
 }
 
 export const SearchBox = () => {
+
+
+
     const [inputValue, setInputValue] = useState("");
     const [images, setImages] = useState <IImages[]>([]);
     const [isHeartClicked, setHeartClicked] = useState<boolean[]>([]);
 
+    const { user } = useAuth0();
 
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -36,11 +41,28 @@ export const SearchBox = () => {
     };
 
 
-    const handleHeartClick = (index: number) => {
+
+
+
+    const createUser = (index: number, likedImage: string) => {
         const newHeartClicked = [...isHeartClicked];
         newHeartClicked[index] = !newHeartClicked[index];
         setHeartClicked(newHeartClicked);
-    };
+
+        axios.post('http://localhost:3000/users', {
+          email: user?.email,
+          image: likedImage,
+        }, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then(function (response) {
+          console.log(response);
+        });
+
+
+      };
 
     return (
         <form onSubmit={handleSubmit}>
@@ -51,7 +73,7 @@ export const SearchBox = () => {
                 <div key={index} className="image-container">
                    <FaHeart 
                             className={`heart-icon ${isHeartClicked[index] ? 'clicked' : ''}`} 
-                            onClick={() => handleHeartClick(index)}
+                            onClick={() => createUser(index, images.link)}
                         />
                     <img key={index} src={images.link} alt={`Image ${index}`}/>
                 </div>
