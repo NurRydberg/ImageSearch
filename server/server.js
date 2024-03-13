@@ -37,9 +37,17 @@ app.post ("/users", (req, res) => {
     // steg 2 sök fram objektet för användaren som kommer in i parametern dvs mailadress
     // steg 3 skicka tillbaka användarens favoritbilder
     // Sker i samband med att användaren klickar på sina favoritbilder i client
-    app.get("/users/:email", (req, res) => {
+    app.get("/users/:email/favoriteImages", (req, res) => {
         const dataJsonfile = JSON.parse(fs.readFileSync("./users.json", "utf-8")); // Hämta ut data 
-        
+        const userEmail = req.params.email;
+
+        const user = dataJsonfile.find((user) => user.email === userEmail);
+
+        if (user) {
+            res.json(user.favoriteImages);
+        }else{
+            res.status(404).json({ error: "User not found"});
+        }
 
 
         res.send("Varsågod, här kommer användare med id" + req.params.email);

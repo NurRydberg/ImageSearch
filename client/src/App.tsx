@@ -10,26 +10,25 @@ import fotokarusellen from "../src/assets/fotokarusellen.png";
 function App() {
   const { isAuthenticated } = useAuth0();
 
-
   useEffect(() => {
-    axios.get(`https://www.googleapis.com/customsearch/v1?key=${import.meta.env.VITE_API_KEY}&cx=${import.meta.env.VITE_GOOGLE_ID}&q=flowers`)
+    axios
+      .get(
+        `https://www.googleapis.com/customsearch/v1?key=${
+          import.meta.env.VITE_API_KEY
+        }&cx=${import.meta.env.VITE_GOOGLE_ID}&q=flowers`
+      )
       .then(function (response) {
-        console.log(response);
       });
   }, []);
 
 
-  
-
-
-  
-
-
-
-
   return (
     <div className="app-container">
-      <img src={fotokarusellen} alt="" style={{ maxWidth: '40%', height: 'auto' }} />
+      <img
+        src={fotokarusellen}
+        alt=""
+        style={{ maxWidth: "40%", height: "auto" }}
+      />
       <div className="centered-container">
         {isAuthenticated ? (
           <>
