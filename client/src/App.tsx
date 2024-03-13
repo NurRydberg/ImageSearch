@@ -18,6 +18,7 @@ function App() {
         }&cx=${import.meta.env.VITE_GOOGLE_ID}&q=flowers`
       )
       .then(function (response) {
+        console.log(response);
       });
   }, []);
 

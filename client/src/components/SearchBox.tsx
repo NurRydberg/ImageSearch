@@ -11,6 +11,8 @@ export const SearchBox = () => {
   const [inputValue, setInputValue] = useState("");
   const [images, setImages] = useState<IImages[]>([]);
   const [isHeartClicked, setHeartClicked] = useState<boolean[]>([]);
+  const [favoriteImages, setFavoriteImages] = useState<string[]>([]);
+  
 
 
   const { user } = useAuth0();
@@ -44,6 +46,8 @@ export const SearchBox = () => {
     newHeartClicked[index] = !newHeartClicked[index];
     setHeartClicked(newHeartClicked);
 
+    setFavoriteImages([...favoriteImages, likedImage]);
+
     axios
       .post(
         "http://localhost:3000/users",
@@ -66,11 +70,15 @@ export const SearchBox = () => {
 
   const getFavorite = () => {
     axios
-        .get(`http://localhost:3000/users/${user?.email}/favoriteImages`)
-        .then(function (response) {
-            console.log(response.data);
-        });
-};
+      .get(`http://localhost:3000/users/${user?.email}/favoriteImages`)
+      .then(function (response) {
+        console.log(response.data);
+        setFavoriteImages(response.data); // Uppdatera favoriteImages med de hämtade bilderna
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -98,6 +106,13 @@ export const SearchBox = () => {
       <button id="favoriteButton" onClick={getFavorite}>
         Favoriter
       </button>
+
+      <div>
+ {favoriteImages.map((image, index) => (
+    <img key={index} src={image} alt={`Favorite Image ${index}`} />
+  ))}
+</div>
+
     </form>
   );
 };
