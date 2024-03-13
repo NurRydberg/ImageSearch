@@ -39,6 +39,7 @@ app.post ("/users", (req, res) => {
     // Sker i samband med att användaren klickar på sina favoritbilder i client
     app.get("/users/:email", (req, res) => {
         const dataJsonfile = JSON.parse(fs.readFileSync("./users.json", "utf-8")); // Hämta ut data 
+        
 
 
         res.send("Varsågod, här kommer användare med id" + req.params.email);
