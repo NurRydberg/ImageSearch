@@ -78,6 +78,7 @@ export const SearchBox = () => {
     }
     
     setShowFavorites(!showFavorites); // Toggle the display of favorited images
+    
   };
 
   return (
@@ -92,9 +93,9 @@ export const SearchBox = () => {
         Starta fotokarusellen!
       </button>
 
-      {/* Button to toggle display of favorited images */}
-      <button id="favoriteButton" onClick={toggleFavorites}>
-        Favoriter
+     {/* Button to toggle display of favorited images */}
+     <button id="favoriteButton" onClick={toggleFavorites}>
+        {showFavorites ? "Göm Favoriter" : "Visa Favoriter"}
       </button>
 
       {/* Conditionally render favorited images */}
