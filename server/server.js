@@ -3,6 +3,7 @@ const cors = require("cors");
 const colors = require('colors');
 const fs = require('fs');
 const { log } = require("console");
+const { registerSchema } = require("./schemas/user.schema");
 
 const app = express();
 
@@ -13,6 +14,8 @@ app.use(express.json());
 
 // Anrop fungerar
 app.post ("/users", (req, res) => {
+        const {error} = registerSchema.validate(req.body, {abortEarly: false});
+        
         const dataJsonfile = JSON.parse(fs.readFileSync("./users.json", "utf-8"));
         const userExists = dataJsonfile.find((user) => user.email === req.body.email);
 
