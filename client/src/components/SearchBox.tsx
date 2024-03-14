@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { FaHeart } from "react-icons/fa";
@@ -13,7 +13,10 @@ export const SearchBox = () => {
   const [isHeartClicked, setHeartClicked] = useState<boolean[]>([]);
   const [favoriteImages, setFavoriteImages] = useState<string[]>([]);
   const [showFavorites, setShowFavorites] = useState(false); // State to control visibility of favorited images
-  
+  const [searchTime, setSearchTime] = useState(0);
+  const [spelling, setSpelling] = useState("");
+  const [isSpellingClicked, setIsSpellingClicked] = useState(false);
+
   const { user } = useAuth0();
 
   const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {
@@ -27,8 +30,15 @@ export const SearchBox = () => {
     }&cx=${
       import.meta.env.VITE_GOOGLE_ID
     }&num=10&searchType=image&q=${inputValue}&lr=lang_sv`;
+
     try {
       const response = await axios.get(URL);
+      setSearchTime(response.data.searchInformation.searchTime);
+      if (response.data.spelling && response.data.spelling.correctedQuery) {
+        setSpelling(response.data.spelling?.correctedQuery);
+      } else {
+        setSpelling("");
+      }
       console.log(response.data);
       setImages(response.data.items);
     } catch (error) {
@@ -69,16 +79,30 @@ export const SearchBox = () => {
     if (!showFavorites) {
       try {
         // Fetch favorited images if showFavorites is false
-        const response = await axios.get(`http://localhost:3000/users/${user?.email}/favoriteImages`);
+        const response = await axios.get(
+          `http://localhost:3000/users/${user?.email}/favoriteImages`
+        );
         setFavoriteImages(response.data); // Update favoriteImages with the fetched images
       } catch (error) {
         console.log(error);
         return;
       }
     }
-    
+
     setShowFavorites(!showFavorites); // Toggle the display of favorited images
-    
+  };
+  
+  useEffect(() => {
+    if (isSpellingClicked) {
+     handleSearch();
+     setIsSpellingClicked(false);
+    }
+  },[isSpellingClicked]);
+
+
+  const handleSpelling = () => {
+    setInputValue(spelling);
+    setIsSpellingClicked(true);
   };
 
   return (
@@ -92,9 +116,25 @@ export const SearchBox = () => {
       <button id="searchBtn" type="submit" onClick={handleSearch}>
         Starta fotokarusellen!
       </button>
-
-     {/* Button to toggle display of favorited images */}
-     <button id="favoriteButton" onClick={toggleFavorites}>
+      {searchTime > 0 && <p>Sökningen tog {searchTime} sekunder</p>}
+      {spelling && (
+        <p>
+          Menade du..?{""}
+          <span
+            style={{
+              cursor: "pointer",
+              textDecoration: "underline",
+              color: "blue",
+            }}
+            onClick={handleSpelling}
+          >
+            {spelling}
+          </span>
+          ?
+        </p>
+      )}
+      {/* Button to toggle display of favorited images */}
+      <button id="favoriteButton" onClick={toggleFavorites}>
         {showFavorites ? "Göm Favoriter" : "Visa Favoriter"}
       </button>
 
@@ -111,7 +151,9 @@ export const SearchBox = () => {
           {images.map((image, index) => (
             <div key={index} className="image-container">
               <FaHeart
-                className={`heart-icon ${isHeartClicked[index] ? "clicked" : ""}`}
+                className={`heart-icon ${
+                  isHeartClicked[index] ? "clicked" : ""
+                }`}
                 onClick={() => createUser(index, image.link)}
               />
               <img key={index} src={image.link} alt={`Image ${index}`} />
