@@ -1,6 +1,6 @@
+import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
-import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 
 interface IImages {
@@ -12,12 +12,11 @@ export const SearchBox = () => {
   const [images, setImages] = useState<IImages[]>([]);
   const [isHeartClicked, setHeartClicked] = useState<boolean[]>([]);
   const [favoriteImages, setFavoriteImages] = useState<string[]>([]);
+  const [showFavorites, setShowFavorites] = useState(false); // State to control visibility of favorited images
   
-
-
   const { user } = useAuth0();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     console.log(inputValue);
   };
@@ -37,11 +36,11 @@ export const SearchBox = () => {
     }
   };
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInput = function (e: React.ChangeEvent<HTMLInputElement>) {
     setInputValue(e.target.value);
   };
 
-  const createUser = (index: number, likedImage: string) => {
+  const createUser = function (index: number, likedImage: string) {
     const newHeartClicked = [...isHeartClicked];
     newHeartClicked[index] = !newHeartClicked[index];
     setHeartClicked(newHeartClicked);
@@ -66,18 +65,19 @@ export const SearchBox = () => {
       });
   };
 
-  //FAVORITBILDER
-
-  const getFavorite = () => {
-    axios
-      .get(`http://localhost:3000/users/${user?.email}/favoriteImages`)
-      .then(function (response) {
-        console.log(response.data);
-        setFavoriteImages(response.data); // Uppdatera favoriteImages med de hämtade bilderna
-      })
-      .catch(function (error) {
+  const toggleFavorites = async () => {
+    if (!showFavorites) {
+      try {
+        // Fetch favorited images if showFavorites is false
+        const response = await axios.get(`http://localhost:3000/users/${user?.email}/favoriteImages`);
+        setFavoriteImages(response.data); // Update favoriteImages with the fetched images
+      } catch (error) {
         console.log(error);
-      });
+        return;
+      }
+    }
+    
+    setShowFavorites(!showFavorites); // Toggle the display of favorited images
   };
 
   return (
@@ -91,28 +91,33 @@ export const SearchBox = () => {
       <button id="searchBtn" type="submit" onClick={handleSearch}>
         Starta fotokarusellen!
       </button>
-      <div>
-        {images.map((images, index) => (
-          <div key={index} className="image-container">
-            <FaHeart
-              className={`heart-icon ${isHeartClicked[index] ? "clicked" : ""}`}
-              onClick={() => createUser(index, images.link)}
-            />
-            <img key={index} src={images.link} alt={`Image ${index}`} />
-          </div>
-        ))}
-      </div>
-      
-      <button id="favoriteButton" onClick={getFavorite}>
+
+      {/* Button to toggle display of favorited images */}
+      <button id="favoriteButton" onClick={toggleFavorites}>
         Favoriter
       </button>
 
-      <div>
- {favoriteImages.map((image, index) => (
-    <img key={index} src={image} alt={`Favorite Image ${index}`} />
-  ))}
-</div>
-
+      {/* Conditionally render favorited images */}
+      {showFavorites && (
+        <div className="favorite-images">
+          {favoriteImages.map((image, index) => (
+            <img key={index} src={image} alt={`Favorite Image ${index}`} />
+          ))}
+        </div>
+      )}
+      {!showFavorites && (
+        <div>
+          {images.map((image, index) => (
+            <div key={index} className="image-container">
+              <FaHeart
+                className={`heart-icon ${isHeartClicked[index] ? "clicked" : ""}`}
+                onClick={() => createUser(index, image.link)}
+              />
+              <img key={index} src={image.link} alt={`Image ${index}`} />
+            </div>
+          ))}
+        </div>
+      )}
     </form>
   );
 };
