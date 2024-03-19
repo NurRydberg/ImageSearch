@@ -1,5 +1,8 @@
-const Joi = require('joi')
+const Joi = require("joi");
 
-const userSchema = Joi.object({
-    user: Joi.string()
-})
+const registerSchema = Joi.object({
+    email: Joi.string().email().required(),
+    image: Joi.string().required(),
+});
+
+module.exports = { registerSchema };

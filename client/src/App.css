@@ -123,3 +123,24 @@ button:hover {
 #searchBtn:hover {
   background-color: #F8C332;  /* Change background color on hover */
 }
+
+
+#favoriteButton {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  padding: 8px 16px;
+  background-color: #3892DB;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.favorite-images img {
+  max-width: 100%;
+  height: auto;
+  max-height: 200px;
+  margin: 10px;
+}
+
