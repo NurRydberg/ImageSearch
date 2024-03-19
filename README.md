@@ -1,39 +1,32 @@
 # ImageSearch
-Inlämningsuppgift till Systemstöd och integration av 3-partssystem
+Fullstack Image Search app that allows users to search for images and create their own photo carousel by favoriting images they like.
 
 
 
-# Project Title
+# Key Features
 
-One Paragraph of project description goes here
+- User authentication with Google/Github using Auth0.
+- Suggestions if word is mispelled.
+- Display duration of search time.
+- Function to save your favorite pictures.
+- A favorite page with all your favorites.
 
-## Getting Started
+<h2>How to use</h2></h2>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+# Installation
 
-### Prerequisites
+- Insall node.js
+- Clone repository https://github.com/NurRydberg/ImageSearch.git
+- Open your Terminal in VS Code
+- New Terminal for Client: First cd client then run npm i and npm run dev
+- New Terminal for Server: Firstcd server Run npm i and node server
+- Navigate to http://localhost:5173/ in your browser to use the app
 
-What things you need to install the software and how to install them
 
-```
-Give examples
-```
 
-### Installing
 
-A step by step series of examples that tell you how to get a development env running
 
-Say what the step will be
 
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
 
 End with an example of getting some data out of the system or using it for a little demo
 
