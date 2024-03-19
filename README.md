@@ -1,6 +1,8 @@
 # ImageSearch
 Fullstack Image Search app that allows users to search for images and create their own photo carousel by favoriting images they like.
 
+![Skärmbild Fotokarusellen](https://github.com/NurRydberg/ImageSearch/assets/143751910/2fb56300-e38a-4529-b378-8c84dd514111)
+
 
 
 # Key Features
