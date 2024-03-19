@@ -3,7 +3,7 @@ Fullstack Image Search app that allows users to search for images and create the
 
 
 
-# Key Features
+## Key Features
 
 - User authentication with Google/Github using Auth0.
 - Suggestions if word is mispelled.
@@ -11,9 +11,9 @@ Fullstack Image Search app that allows users to search for images and create the
 - Function to save your favorite pictures.
 - A favorite page with all your favorites.
 
-<h2>How to use</h2></h2>
+# How to use
 
-# Installation
+## Installation
 
 - Insall node.js
 - Clone repository https://github.com/NurRydberg/ImageSearch.git
@@ -23,7 +23,7 @@ Fullstack Image Search app that allows users to search for images and create the
 - Navigate to http://localhost:5173/ in your browser to use the app
 
 
-### API Endpoints
+## API Endpoints
 
 - POST /users
 - GET /users/{userEmail/favoriteImages}
