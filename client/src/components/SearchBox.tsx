@@ -119,7 +119,7 @@ export const SearchBox = () => {
       {searchTime > 0 && <p>Sökningen tog {searchTime} sekunder</p>}
       {spelling && (
         <p>
-          Menade du..?{""}
+          Menade du...{""}
           <span
             style={{
               cursor: "pointer",
