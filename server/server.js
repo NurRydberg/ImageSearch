@@ -12,8 +12,6 @@ const app = express();
 app.use(cors());
 app.use(express.json()); 
 
-
-// Anrop fungerar
 app.post ("/users", validate(registerSchema), (req, res) => {
         const {error} = registerSchema.validate(req.body, {abortEarly: false});
         if (error) {
@@ -39,13 +37,8 @@ app.post ("/users", validate(registerSchema), (req, res) => {
 });
     
         
-    
-
-    // steg 2 sök fram objektet för användaren som kommer in i parametern dvs mailadress
-    // steg 3 skicka tillbaka användarens favoritbilder
-    // Sker i samband med att användaren klickar på sina favoritbilder i client
     app.get("/users/:email/favoriteImages", (req, res) => {
-        const dataJsonfile = JSON.parse(fs.readFileSync("./users.json", "utf-8")); // Hämta ut data 
+        const dataJsonfile = JSON.parse(fs.readFileSync("./users.json", "utf-8")); 
         const userEmail = req.params.email;
 
         const user = dataJsonfile.find((user) => user.email === userEmail);
