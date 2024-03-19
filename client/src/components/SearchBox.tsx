@@ -12,11 +12,10 @@ export const SearchBox = () => {
   const [images, setImages] = useState<IImages[]>([]);
   const [isHeartClicked, setHeartClicked] = useState<boolean[]>([]);
   const [favoriteImages, setFavoriteImages] = useState<string[]>([]);
-  const [showFavorites, setShowFavorites] = useState(false); // State to control visibility of favorited images
+  const [showFavorites, setShowFavorites] = useState(false); 
   const [searchTime, setSearchTime] = useState(0);
   const [spelling, setSpelling] = useState("");
   const [isSpellingClicked, setIsSpellingClicked] = useState(false);
-
   const { user } = useAuth0();
 
   const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {
@@ -78,18 +77,16 @@ export const SearchBox = () => {
   const toggleFavorites = async () => {
     if (!showFavorites) {
       try {
-        // Fetch favorited images if showFavorites is false
         const response = await axios.get(
           `http://localhost:3000/users/${user?.email}/favoriteImages`
         );
-        setFavoriteImages(response.data); // Update favoriteImages with the fetched images
+        setFavoriteImages(response.data); 
       } catch (error) {
-        console.log(error);
         return;
       }
     }
 
-    setShowFavorites(!showFavorites); // Toggle the display of favorited images
+    setShowFavorites(!showFavorites); 
   };
   
   useEffect(() => {
@@ -133,12 +130,9 @@ export const SearchBox = () => {
           ?
         </p>
       )}
-      {/* Button to toggle display of favorited images */}
       <button id="favoriteButton" onClick={toggleFavorites}>
         {showFavorites ? "Göm Favoriter" : "Visa Favoriter"}
       </button>
-
-      {/* Conditionally render favorited images */}
       {showFavorites && (
         <div className="favorite-images">
           {favoriteImages.map((image, index) => (

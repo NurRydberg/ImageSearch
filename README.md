@@ -1,5 +1,5 @@
-# ImageSearch
-Fullstack Image Search app that allows users to search for images and create their own photo carousel by favoriting images they like.
+# ImageSearch: A Fullstack Image Search App
+Welcome to ImageSearch, a fullstack application that enables users to search for images and curate their own photo carousel by saving their favorite images.
 
 
 
