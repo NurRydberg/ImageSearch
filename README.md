@@ -1,6 +1,8 @@
 # ImageSearch: A Fullstack Image Search App
 Welcome to ImageSearch, a fullstack application that enables users to search for images and curate their own photo carousel by saving their favorite images.
 
+![Skärmbild Fotokarusellen](https://github.com/NurRydberg/ImageSearch/assets/143751910/2fb56300-e38a-4529-b378-8c84dd514111)
+
 
 
 ## Key Features
@@ -27,4 +29,3 @@ Welcome to ImageSearch, a fullstack application that enables users to search for
 
 - POST /users
 - GET /users/{userEmail/favoriteImages}
-
